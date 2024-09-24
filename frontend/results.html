@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Maid Finder</title>
+    
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.background-container {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: url('back.jpg'); 
+background-size: cover;
+background-position: center;
+filter: blur(1px); 
+z-index: -1; 
+overflow: hidden;
+margin-top: 40px;
+} .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+header {
+
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.faint-text {
+    opacity: 0.5;
+    color: grey;
+}
+
+.logo span {
+    color: #003135;
+}
+
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    padding-left: 813px;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #003135;
+    opacity: 0.7;
+    font-size: 15px;
+}
+
+
+main {  
+display: flex;  
+flex-direction: column;  
+align-items: center;  
+padding: 2em;  
+}  
+
+.maid-profiles {  
+display: flex;  
+flex-wrap: wrap;  
+justify-content: center;  
+}  
+h1{
+    justify-content: centre;
+    color: rgb(135, 129, 119)
+}
+
+.maid-card {  
+border: 1px solid #111010;
+border-radius: 10px;
+padding: 1em;
+margin: 1em;
+width: 300px;
+height: 500px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+margin-top: 5px; /* Reduced margin-top value */
+}
+
+.maid-card img {  
+width: 100%;  
+height: 130px;  
+object-fit: cover;  
+border-radius: 10px 10px 0 0;  
+}  
+
+.maid-card h3 {  
+font-weight: bold;  
+margin-bottom: 0.5em;  
+text-align: center;  
+}  
+
+.maid-card p {  
+margin-bottom: 0.5em;  
+text-align: center;  
+}  
+
+.book-now {  
+background-color: green;
+color: white;
+border: none;
+padding: 0.5em 1em;
+font-size: 1em;
+cursor: pointer;
+justify-content: center;
+border-radius: 20px; margin-left:20px; }
+
+.book-now:hover {  
+background-color: white;
+color:green;  
+}  
+
+.identification-docs {  
+display: flex;  
+flex-wrap: wrap;  
+justify-content: center;  
+}  
+    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Maid Finder</title>
+    <style>
+        /* Add your existing styles here */
+        .maid-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .book-now {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="overlay"></div>
+    </div>
+    <header>
+        <nav>
+            <div class="logo"><a href="home_page.html">
+                <span class="faint-text">Find</span>
+                <span><strong>Maid</strong></span>
+                <span class="faint-text">Here</span>
+            </a></div>
+            <ul class="nav-links">
+                <li><a href="first.html">Home</a></li>
+                <li><a href="register.html">Registration</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="About_Us.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Maid Profiles:</h1>
+        <div id="maidProfiles" class="maid-profiles"></div>
+        <div id="errorMessage"></div>
+    </main>
+    <script>
+        const maidProfiles = document.getElementById('maidProfiles');
+        const errorMessage = document.getElementById('errorMessage');
+
+        async function fetchMaidProfiles() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const city = urlParams.get('city');
+            const serviceType = urlParams.get('serviceType');
+
+            console.log('Fetching maids with params:', { city, serviceType });
+
+            try {
+                const response = await fetch(`/api/maids?city=${city || ''}&serviceType=${serviceType || ''}`);
+                console.log('Response status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const maids = await response.json();
+                console.log('Received maids data:', maids);
+
+                displayMaids(maids);
+            } catch (error) {
+                console.error('Error fetching maids:', error);
+                errorMessage.textContent = `Error fetching maid profiles: ${error.message}`;
+            }
+        }
+
+        function displayMaids(maids) {
+            if (!Array.isArray(maids) || maids.length === 0) {
+                maidProfiles.innerHTML = '<p>No maids found for the selected criteria.</p>';
+                return;
+            }
+
+            maidProfiles.innerHTML = maids.map(maid => `
+                <div class="maid-card">
+                    <img src="${maid.profilePicture || 'placeholder.jpg'}" alt="${maid.fullName}'s profile picture" onerror="this.src='placeholder.jpg'">
+                    <h3>${maid.fullName}</h3>
+                    <p>City: ${maid.city}</p>
+                    <p>Service Type: ${maid.serviceType}</p>
+                    <p>Experience: ${maid.yearsOfExperience} years</p>
+                    <p>Working Hours: ${maid.workingHours} hours</p>
+                    <p>Salary: ₹${maid.salary}/month</p>
+                    <button class="book-now" onclick="bookMaid('${maid._id}')">Book Now</button>
+                </div>
+            `).join('');
+        }
+
+        function bookMaid(maidId) {
+            window.location.href = `userForm.html?maidId=${maidId}`;
+        }
+
+        // Call the function when the page loads
+        fetchMaidProfiles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Maid Finder</title>
+    <link rel="stylesheet" href="register.css">
+    <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+<body>
+    <div class="background-container">
+        <div class="overlay"></div>
+    </div>
+    <header>
+        <nav>
+            <div class="logo"><a class="new" href="home_page.html">
+                <span class="faint-text">Find</span>
+                <span><strong>Maid</strong></span>
+                <span class="faint-text">Here</span>
+            </a></div>
+            <ul class="nav-links">
+                <li><a href="first.html">Home</a></li>
+                <li><a href="register.html">Registration</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="About_Us.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="title">Maid Registration</div>
+        <div class="content">
+            <form id="registrationForm" enctype="multipart/form-data">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" name="fullName" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" name="password" placeholder="Enter your Password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Address</span>
+                        <input type="text" name="address" placeholder="Enter your address" required>
+                    </div>
+                    <div class="input-box-inline">
+                      <div class="input-box">
+                          <span class="details">City</span>
+                          <select name="city" required>
+                              <option value="" disabled selected>City</option>
+                              <option value="Thane">Thane</option>
+                              <option value="Mulund">Mulund</option>
+                              <option value="Kurla">Kurla</option>
+                              <option value="Vidyavihar">Vidyavihar</option>
+                              <option value="Andheri">Andheri</option>
+                              <option value="Malad">Malad</option>
+                              <option value="Kalyan">Kalyan</option>
+                              <option value="Ulhasnagar">Ulhasnagar</option>
+                          </select>
+                      </div>
+                      <div class="input-box">
+                          <span class="details">Service Type</span>
+                          <select name="serviceType" required>
+                              <option value="" disabled selected>Select your service</option>
+                              <option value="Cleaning">Cleaning</option>
+                              <option value="Cooking">Cooking</option>
+                              <option value="Babysitting">Baby Sitting</option>
+                              <option value="Elderly Care">Elderly Care</option>
+                              <option value="Gardening">Gardening</option>
+                              <option value="Laundry">Laundry</option>
+                              <option value="Pet Care">Pet Care</option>
+                              <option value="Grocery Shopping">Grocery Shopping</option>
+                          </select>
+                      </div>
+                  </div>
+                  
+                  <div class="input-box-inline">
+                      <div class="input-box">
+                          <span class="details">Working Hours</span>
+                          <select name="workingHours" required>
+                              <option value="" disabled selected>Working Hours</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                          </select>
+                      </div>
+                      <div class="input-box">
+                          <span class="details">Year of Experience</span>
+                          <select name="yearsOfExperience" required>
+                              <option value="" disabled selected>Year of Experience</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="ID-details">
+                    <span class="gender-title">ID Proof</span>
+                    <div class="category">
+                        <label>
+                            <input type="radio" name="idProofType" value="Pan Card" required>
+                            <span class="ID detail">Pan Card</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="idProofType" value="Aadhar Card" required>
+                            <span class="ID detail">Aadhar Card</span>
+                        </label>
+                    </div>
+                </div>
+                </div>
+                <div class="input-box">
+                  <span class="details">Photo of selected ID Proof</span>
+                  <input type="file" name="idProofImage" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Salary</span>
+                  <input type="number" name="salary" placeholder="Salary" required>
+                </div>
+                <div class="input-box">
+                  <span class="details">Upload your Picture</span>
+                  <input type="file" name="profilePicture" required>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message);
+                    window.location.href = 'login.html';
+                } else {
+                    const error = await response.json();
+                    alert(error.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during registration');
+            }
+        });
+    </script>
+</body>
+</html>
