@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maid Registration Form - Admin Panel</title>
+    <link rel="stylesheet" href="maidForm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="admin-info">
+                    <h2>Admin Panel</h2>
+                    <p>Maid Registration</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-item">
+                    <a href="../adminDashboard.html" class="nav-link">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-user-plus nav-icon"></i>
+                        <span class="nav-text">Add Maid</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                   
+                </div>
+                <div class="nav-item">
+                    <a href="viewOrders.html" class="nav-link">
+                        <i class="fas fa-clipboard-list nav-icon"></i>
+                        <span class="nav-text">View Orders</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="logout-section">
+                <a href="../first.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h1>Add New Maid</h1>
+                <p>Register a new maid to the system with complete details</p>
+            </div>
+
+            <div class="form-container">
+                <h1><i class="fas fa-user-plus" style="margin-right: 10px; color: #667eea;"></i>Maid Registration Form</h1>
+                
+                <form id="maidRegistrationForm" action="/register-maid" method="POST" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter email address" required>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-venus-mars"></i> Gender</label>
+                            <div class="gender-options">
+                                <div class="gender-option">
+                                    <input type="radio" id="male" name="gender" value="Male" required>
+                                    <label for="male">Male</label>
+                                </div>
+                                <div class="gender-option">
+                                    <input type="radio" id="female" name="gender" value="Female" required>
+                                    <label for="female">Female</label>
+                                </div>
+                                <div class="gender-option">
+                                    <input type="radio" id="other" name="gender" value="Other" required>
+                                    <label for="other">Other</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Locality -->
+                        <div class="form-group">
+                            <label for="locality"><i class="fas fa-map-marker-alt"></i> Locality</label>
+                            <select id="locality" name="locality" required>
+                                <option value="" disabled selected>Select Locality</option>
+                                <option value="Andheri">Andheri</option>
+                                <option value="Bandra">Bandra</option>
+                                <option value="Borivali">Borivali</option>
+                                <option value="Byculla">Byculla</option>
+                                <option value="Chembur">Chembur</option>
+                                <option value="Colaba">Colaba</option>
+                                <option value="Dadar">Dadar</option>
+                                <option value="Goregaon">Goregaon</option>
+                                <option value="Kandivali">Kandivali</option>
+                                <option value="Kurla">Kurla</option>
+                                <option value="Lower Parel">Lower Parel</option>
+                                <option value="Malad">Malad</option>
+                                <option value="Marine Drive">Marine Drive</option>
+                                <option value="Matunga">Matunga</option>
+                                <option value="Mulund">Mulund</option>
+                                <option value="Powai">Powai</option>
+                                <option value="Sion">Sion</option>
+                                <option value="Thane">Thane</option>
+                                <option value="Vikhroli">Vikhroli</option>
+                                <option value="Vile Parle">Vile Parle</option>
+                                <option value="Worli">Worli</option>
+                                <option value="Juhu">Juhu</option>
+                                <option value="Khar">Khar</option>
+                                <option value="Mahalaxmi">Mahalaxmi</option>
+                                <option value="Shivaji Park">Shivaji Park</option>
+                                <option value="Chakala">Chakala</option>
+                                <option value="Cuffe Parade">Cuffe Parade</option>
+                                <option value="Versova">Versova</option>
+                                <option value="Lokhandwala">Lokhandwala</option>
+                                <option value="Girgaon">Girgaon</option>
+                                <option value="Parel">Parel</option>
+                                <option value="Malabar Hill">Malabar Hill</option>
+                                <option value="Bhayandar">Bhayandar</option>
+                                <option value="Mumbra">Mumbra</option>
+                                <option value="Turbhe">Turbhe</option>
+                                <option value="Vashi">Vashi</option>
+                            </select>
+                        </div>
+
+                        <!-- Service Type -->
+                        <div class="form-group">
+                            <label for="serviceType"><i class="fas fa-briefcase"></i> Service Type</label>
+                            <select id="serviceType" name="serviceType" required>
+                                <option value="" disabled selected>Select Service</option>
+                                <option value="House Cleaning">House Cleaning</option>
+                                <option value="Cook/Chef">Cook/Chef</option>
+                                <option value="Baby Sitting">Baby Sitting</option>
+                                <option value="Elderly Care">Elderly Care</option>
+                                <option value="Gardening">Gardening</option>
+                                <option value="Laundry/Iron">Laundry/Iron</option>
+                                <option value="Pet Care">Pet Care</option>
+                                <option value="Grocery Shopping">Grocery Shopping</option>
+                            </select>
+                        </div>
+
+                        <!-- Working Hours -->
+                        <div class="form-group">
+                            <label for="workingHours"><i class="fas fa-clock"></i> Working Hours</label>
+                            <input type="text" id="workingHours" name="workingHours" placeholder="e.g., 4-6 hrs" required>
+                        </div>
+
+                        <!-- Years of Experience -->
+                        <div class="form-group">
+                            <label for="experience"><i class="fas fa-star"></i> Years of Experience</label>
+                            <select id="experience" name="experience" required>
+                                <option value="" disabled selected>Select Experience</option>
+                                <option value="0">0 (Fresher)</option>
+                                <option value="1">1 Year</option>
+                                <option value="2">2 Years</option>
+                                <option value="3">3 Years</option>
+                                <option value="4+">4+ Years</option>
+                            </select>
+                        </div>
+
+                        <!-- Salary -->
+                        <div class="form-group">
+                            <label for="salary"><i class="fas fa-rupee-sign"></i> Expected Salary</label>
+                            <input type="text" id="salary" name="salary" placeholder="Enter expected salary (per month)" required>
+                        </div>
+
+                        <!-- Photo -->
+                        <div class="form-group">
+                            <label for="photo"><i class="fas fa-camera"></i> Maid Photo</label>
+                            <input type="file" id="photo" name="photo" accept="image/*" required>
+                        </div>
+
+                        <!-- ID Proof -->
+                        <div class="form-group">
+                            <label for="idProof"><i class="fas fa-id-card"></i> ID Proof Type</label>
+                            <select id="idProof" name="idProof" required>
+                                <option value="" disabled selected>Select ID Proof</option>
+                                <option value="Aadhar">Aadhar Card</option>
+                                <option value="PAN">PAN Card</option>
+                            </select>
+                        </div>
+
+                        <!-- ID Proof Image -->
+                        <div class="form-group">
+                            <label for="idProofImage"><i class="fas fa-file-image"></i> ID Proof Photo</label>
+                            <input type="file" id="idProofImage" name="idProofImage" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-user-plus" style="margin-right: 8px;"></i>
+                        Register Maid
+                    </button>
+
+                    <!-- Message Container -->
+                    <div id="messageContainer"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Toggle sidebar for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Close sidebar when clicking outside on mobile for smaller screens (≤ 768px)
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Form submission
+        document.getElementById('maidRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const messageContainer = document.getElementById('messageContainer');
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            messageContainer.innerHTML = '';
+            
+            const formData = new FormData(this);
+            
+            fetch('/register-maid', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove loading state
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                
+                if (data.success) {
+                    // success message
+                    messageContainer.innerHTML = `
+                        <div class="message success">
+                            <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
+                            ${data.message}
+                        </div>
+                    `;
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Scroll to message
+                    messageContainer.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    throw new Error(data.message || 'Registration failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Remove loading state
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                
+                // Show error message
+                messageContainer.innerHTML = `
+                    <div class="message error">
+                        <i class="fas fa-exclamation-circle" style="margin-right: 8px;"></i>
+                        ${error.message || 'An error occurred during registration. Please try again.'}
+                    </div>
+                `;
+                
+                // Scroll to message
+                messageContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // File input preview (optional enhancement)
+        document.getElementById('photo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                console.log('Photo selected:', file.name);
+            }
+        });
+
+        document.getElementById('idProofImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                console.log('ID Proof image selected:', file.name);
+            }
+        });
+
+        // Form validation enhancements
+        document.querySelectorAll('input[required], select[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.style.borderColor = '#e53e3e';
+                } else {
+                    this.style.borderColor = '#e2e8f0';
+                }
+            });
+
+            field.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = '#38a169';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

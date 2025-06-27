@@ -1,0 +1,84 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HomeAssist - Customer Home Page</title>
+        <link rel="stylesheet" href="profile.css">
+        <link rel="icon" href="images/logo.png" type="image/x-icon">
+
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">
+                <h1>HomeAssist</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="profile.html" class="nav-item active">
+                    <i class="icon-home"></i>
+                    HOME
+                </a>
+               
+                <a href="orders.html" class="nav-item">
+                    <i class="icon-booking"></i>
+                    MY BOOKING
+                </a>
+                <a href="userCity.html" class="nav-item">
+                    <i class="icon-search"></i>
+                    SEARCH MAID
+                </a>
+                <div class="user-profile dropdown">
+                    <button class="dropbtn">
+                        <i class="icon-user"></i>
+                        <span id="userGreeting">HELLO, USER</span>
+                        <i class="icon-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    
+        <main>
+            <div class="page-title">
+                <i class="icon-user-circle"></i>
+                <h2>Customer Home Page</h2>
+            </div>
+            
+            <div class="banner">
+                <img src="images/home.png" alt="Maid cleaning service professional" class="banner-image">
+            </div>
+        </main>
+    
+        <script>
+            // Function to update user greeting
+            function updateUserGreeting() {
+                const userData = JSON.parse(localStorage.getItem('userData'));
+                if (userData && userData.firstName) {
+                    document.getElementById('userGreeting').textContent = `HELLO, ${userData.firstName.toUpperCase()}`;
+                }
+            }
+    
+            // Function to handle logout
+            function logout() {
+                localStorage.removeItem('userData'); // Clear user data
+                window.location.href = 'first.html'; // Redirect to home page
+            }
+    
+            // Check if user is logged in
+            function checkAuth() {
+                const userData = localStorage.getItem('userData');
+                if (!userData) {
+                    window.location.href = 'login.html'; // Redirect to login if not logged in
+                }
+            }
+    
+            // Initialize page
+            window.addEventListener('load', () => {
+                checkAuth();
+                updateUserGreeting();
+            });
+        </script>
+    </body>
+    </html>

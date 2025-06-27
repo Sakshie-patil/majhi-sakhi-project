@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Bookings</title>
+<link rel="stylesheet" href="orders.css">
+<link rel="icon" href="images/logo.png" type="image/x-icon">
+
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <h1>HomeAssist</h1>
+        </div>
+        <nav class="nav-menu">
+            <a href="profile.html" class="nav-item">
+                <i class="icon-home"></i>
+                HOME
+            </a>
+           
+            <a href="orders.html" class="nav-item active">
+                <i class="icon-booking"></i>
+                MY BOOKING
+            </a>
+            <a href="userCity.html" class="nav-item">
+                <i class="icon-search"></i>
+                SEARCH MAID
+            </a>
+            <div class="user-profile dropdown">
+              <button class="dropbtn">
+                  <i class="icon-user"></i>
+                  <span id="userGreeting">HELLO, USER</span>
+                  <i class="icon-chevron-down"></i>
+              </button>
+              <div class="dropdown-content">
+                   <a href="first.html" onclick="logout()">Logout</a>
+              </div>
+          </div>
+        </nav>
+    </header> 
+
+<div class="container">
+  <h1>My Bookings</h1>
+  
+  <div id="loadingMessage" class="loading">
+    Loading your bookings...
+  </div>
+
+  <div id="errorMessage" style="display: none;"></div>
+
+  <div id="bookingsContainer" class="bookings-table" style="display: none;">
+    <table>
+        <thead>
+            <tr>
+                <th>SR NO.</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Date</th>
+                <th>Days</th>
+                <th>Hours</th>
+                <th>Status</th>
+                <th>Booking Date</th>
+            </tr>
+        </thead>
+        <tbody id="bookingsTableBody">
+        </tbody>
+    </table>
+  </div>
+
+  <div id="noBookingsMessage" class="no-bookings" style="display: none;">
+    <h3>No bookings found</h3>
+    <p>You haven't made any bookings yet.</p>
+    <a href="userCity.html">Search for a maid</a>
+  </div>
+</div>
+
+<script>
+function updateUserGreeting() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData && userData.firstName) {
+        document.getElementById('userGreeting').textContent = `HELLO, ${userData.firstName.toUpperCase()}`;
+    }
+}
+
+// Function to handle logout
+function logout() {
+    localStorage.removeItem('userData');
+    localStorage.removeItem('orders');
+    window.location.href = 'first.html';
+}
+
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
+function getStatusClass(status) {
+    return status ? status.toLowerCase() : 'pending';
+}
+
+// Load bookings for the specific logged-in user only
+async function loadBookings() {
+    console.log('Starting to load bookings...');
+    
+    // Get current user data
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    console.log('Current user data:', userData);
+    
+    if (!userData || !userData._id) {
+        showError('Please login to view your bookings');
+        return;
+    }
+
+    const currentUserId = userData._id;
+    console.log('Current user ID:', currentUserId);
+    
+    // First, show bookings from localStorage that belong to this user
+    const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    const userLocalOrders = localOrders.filter(order => 
+        order.userId === currentUserId || 
+        (order.name === userData.firstName + ' ' + (userData.lastName || '').trim() && 
+         order.contact === userData.phoneNumber)
+    );
+    
+    console.log('User local orders:', userLocalOrders);
+    
+    if (userLocalOrders.length > 0) {
+        console.log('Displaying user local orders immediately');
+        displayBookings(userLocalOrders);
+        return;
+    }
+    
+    // Try to fetch from API using user ID
+    await tryLoadFromAPI(currentUserId, userData);
+}
+
+// Try to load from API using user ID
+async function tryLoadFromAPI(userId, userData) {
+    try {
+        console.log(`Fetching bookings for user ID: ${userId}`);
+        
+        // Use user ID for API call - more secure and accurate
+        const response = await fetch(`/api/user-bookings?userId=${encodeURIComponent(userId)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        console.log('API Response status:', response.status);
+
+        if (response.ok) {
+            const apiBookings = await response.json();
+            console.log('API bookings received:', apiBookings);
+            
+            if (apiBookings.length > 0) {
+                displayBookings(apiBookings);
+            } else {
+                // Fallback: try with name and phone if userId search returns nothing
+                await tryLoadWithNamePhone(userData.firstName, userData.phoneNumber, userId);
+            }
+        } else {
+            console.log('API call failed with status:', response.status);
+            // Fallback: try with name and phone
+            await tryLoadWithNamePhone(userData.firstName, userData.phoneNumber, userId);
+        }
+    } catch (error) {
+        console.error('API call error:', error);
+        // Fallback: try with name and phone
+        await tryLoadWithNamePhone(userData.firstName, userData.phoneNumber, userId);
+    }
+}
+
+// Fallback method using name and phone but filter by user
+async function tryLoadWithNamePhone(userName, userPhone, userId) {
+    try {
+        if (!userName || !userPhone) {
+            showNoBookings();
+            return;
+        }
+
+        console.log(`Fallback: Fetching bookings for: ${userName}, ${userPhone}`);
+        
+        const response = await fetch(`/api/user-bookings?name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (response.ok) {
+            const apiBookings = await response.json();
+            console.log('Fallback API bookings received:', apiBookings);
+            
+            // Filter bookings to only show ones that belong to this user
+            const userBookings = apiBookings.filter(booking => {
+                return booking.userId === userId || 
+                       (booking.name === userName && booking.contact === userPhone);
+            });
+            
+            console.log('Filtered user bookings:', userBookings);
+            
+            if (userBookings.length > 0) {
+                displayBookings(userBookings);
+            } else {
+                showNoBookings();
+            }
+        } else {
+            console.log('Fallback API call failed');
+            showNoBookings();
+        }
+    } catch (error) {
+        console.error('Fallback API call error:', error);
+        showNoBookings();
+    }
+}
+
+function displayBookings(bookings) {
+    console.log('Displaying bookings:', bookings);
+    
+    const loadingMessage = document.getElementById('loadingMessage');
+    const bookingsContainer = document.getElementById('bookingsContainer');
+    const noBookingsMessage = document.getElementById('noBookingsMessage');
+    const tableBody = document.getElementById('bookingsTableBody');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Hide loading and error messages
+    loadingMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    noBookingsMessage.style.display = 'none';
+    
+    // Show bookings container
+    bookingsContainer.style.display = 'block';
+    
+    // Clear existing table content
+    tableBody.innerHTML = '';
+    
+    bookings.forEach((booking, index) => {
+        const row = document.createElement('tr');
+        
+        // Generate booking ID
+        const bookingId = index +1;
+        
+        // Extract booking data
+        const customerName = booking.name || booking.userName || 'N/A';
+        const contact = booking.contact || 'N/A';
+        const date = booking.date || 'N/A';
+        const days = booking.days || 'N/A';
+        const hours = booking.hours || 'N/A';
+        const status = booking.status || 'Pending';
+        const bookingDate = booking.createdAt || booking.date || new Date().toISOString();
+        
+        row.innerHTML = `
+            <td>${bookingId}</td>
+            <td>${customerName}</td>
+            <td>${contact}</td>
+            <td>${date !== 'N/A' ? formatDate(date) : 'N/A'}</td>
+            <td>${days}</td>
+            <td>${hours}</td>
+            <td><span class="status ${getStatusClass(status)}">${status}</span></td>
+            <td>${bookingDate !== 'N/A' ? formatDate(bookingDate) : 'N/A'}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+function showNoBookings() {
+    const loadingMessage = document.getElementById('loadingMessage');
+    const bookingsContainer = document.getElementById('bookingsContainer');
+    const noBookingsMessage = document.getElementById('noBookingsMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    loadingMessage.style.display = 'none';
+    bookingsContainer.style.display = 'none';
+    errorMessage.style.display = 'none';
+    noBookingsMessage.style.display = 'block';
+}
+
+function showError(message) {
+    const loadingMessage = document.getElementById('loadingMessage');
+    const bookingsContainer = document.getElementById('bookingsContainer');
+    const noBookingsMessage = document.getElementById('noBookingsMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    loadingMessage.style.display = 'none';
+    bookingsContainer.style.display = 'none';
+    noBookingsMessage.style.display = 'none';
+    errorMessage.style.display = 'block';
+    errorMessage.textContent = message;
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Page loaded, initializing...');
+    updateUserGreeting();
+    loadBookings();
+});
+</script>
+</body>
+</html>

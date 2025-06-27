@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Majhi Sakhi</title>
+    <link rel="stylesheet" href="first.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Navigation (Same as your main page) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="first.html">
+                <i class="fas fa-home text-success"></i>
+                <span class="ms-2 fw-bold">Majhi Sakhi</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="first.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="first.html#service">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="first.html#aboutUS">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contacts.html">Contact</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-warning text-dark px-4" href="login.html">Log in</a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-outline-success text-dark px-4" href="adminLogin.html">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="fw-bold">Contact Us</h2>
+                    <p class="text-muted">Have questions? Get in touch with us!</p>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Note:</strong> This is a college project demo. For service booking, please <a href="login.html">login here</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Contact Information -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-envelope text-success fa-2x mb-3"></i>
+                            <h5>Email Us</h5>
+                            <p class="text-muted">Send us your questions</p>
+                            <p><strong>demo@majhisakhi.com</strong></p>
+                            <small class="text-muted">(Demo Email)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-phone text-success fa-2x mb-3"></i>
+                            <h5>Call Us</h5>
+                            <p class="text-muted">For general inquiries</p>
+                            <p><strong>+91 XXXXX XXXXX</strong></p>
+                            <small class="text-muted">(Demo Number)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-tie text-success fa-2x mb-3"></i>
+                            <h5>Book Services</h5>
+                            <p class="text-muted">Ready to hire a maid?</p>
+                            <a href="login.html" class="btn btn-success">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login to Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            Contact Form
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="fas fa-envelope me-2"></i>Send us a Message</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> This form is for general inquiries only. To book services, please <a href="login.html">create an account</a>.
+                            </div>
+
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject">
+                                        <option value="">Select a topic</option>
+                                        <option value="services">Service Information</option>
+                                        <option value="pricing">Pricing Questions</option>
+                                        <option value="feedback">Feedback</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message *</label>
+                                    <textarea class="form-control" id="message" rows="5" placeholder="Write your message here..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-lg w-100">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="text-center mb-4">Frequently Asked Questions</h3>
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title text-success">What's the difference between contact form and booking?</h6>
+                                    <p class="card-text small">Contact form is for questions only. For actual service booking, you need to login and use the booking system.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title text-success">Is this a real business?</h6>
+                                    <p class="card-text small">No, this is a college project demo. All contact information is for demonstration purposes only.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title text-success">How do I book a maid?</h6>
+                                    <p class="card-text small">Create an account, login, browse services, and fill the booking form. Admin will review and assign a maid.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title text-success">Can I test the system?</h6>
+                                    <p class="card-text small">Yes! You can create a demo account and test all features including the admin panel.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Same as your main page) -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-main">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="footer-brand">
+                            <div class="brand-logo">
+                                <i class="fas fa-home text-success"></i>
+                                <span class="ms-2 fw-bold">Majhi Sakhi</span>
+                            </div>
+                            <p class="footer-description">
+                                A college project demonstrating a maid hiring platform.
+                            </p>
+                            <span class="badge bg-success">College Project Demo</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="footer-title">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="first.html">Home</a></li>
+                            <li><a href="first.html#service">Services</a></li>
+                            <li><a href="first.html#aboutUS">About Us</a></li>
+                            <li><a href="contacts.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="footer-title">Demo Access</h5>
+                        <ul class="footer-links">
+                            <li><a href="login.html">User Login</a></li>
+                            <li><a href="adminLogin.html">Admin Panel</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p class="copyright">&copy; 2024 Majhi Sakhi - College Project</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! This is a demo form.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+/* Contact Page Styles */
+.contact-hero {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 4rem 0 2rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+.contact-cards-section {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+.contact-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  height: 100%;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #28a745;
+}
+
+.contact-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.contact-card h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.contact-card p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.contact-details {
+  margin-bottom: 1rem;
+}
+
+.demo-contact {
+  font-weight: 600;
+  color: #28a745;
+}
+
+.contact-form-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+.contact-form-container,
+.project-info-container {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 15px;
+  height: 100%;
+}
+
+.form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.form-subtitle {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.contact-form .form-control,
+.contact-form .form-select {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-form .form-control:focus,
+.contact-form .form-select:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.project-info {
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.info-item i {
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
+}
+
+.info-item strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.info-item p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.demo-flow h4 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.flow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  background: #28a745;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.step-content strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.step-content p {
+  margin: 0;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.demo-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.faq-section {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: #666;
+  font-size: 1rem;
+}
+
+.accordion-button {
+  font-weight: 600;
+  color: #333;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #28a745;
+  color: white;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+.project-badge {
+  margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .contact-cards-section {
+    padding: 2rem 0;
+  }
+
+  .contact-form-section {
+    padding: 2rem 0;
+  }
+
+  .demo-buttons {
+    justify-content: center;
+  }
+
+  .flow-step {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .step-number {
+    margin: 0 auto 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-form-container,
+  .project-info-container {
+    padding: 1.5rem;
+  }
+
+  .demo-buttons .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

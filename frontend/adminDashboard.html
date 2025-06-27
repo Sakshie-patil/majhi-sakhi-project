@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Maid Hiring Management</title>
+    <link rel="stylesheet" href="adminDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
+</head>
+
+<body>
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="admin-info">
+                    <h2>Admin Panel</h2>
+                    <p>Maid Hiring System</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-tachometer-alt nav-icon"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="admin/maidForm.html" class="nav-link">
+                        <i class="fas fa-user-plus nav-icon"></i>
+                        <span class="nav-text">Add Maid</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                </div>
+                <div class="nav-item">
+                    <a href="admin/viewOrders.html" class="nav-link">
+                        <i class="fas fa-clipboard-list nav-icon"></i>
+                        <span class="nav-text">View Orders</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="logout-section">
+                <a href="first.html" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h1>Admin Dashboard</h1>
+                <p>Welcome to the Maid Hiring Management System</p>
+            </div>
+
+            <div class="dashboard-stats">
+                <!-- Total Users Card -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon users">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Total Users</div>
+                    <a href="#" class="stat-action">
+                        View Details
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Total Maids Card -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon maids">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="totalMaids">0</div>
+                    <div class="stat-label">Total Maids</div>
+                    <a href="admin/maidForm.html" class="stat-action">
+                        Add New Maid
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+
+                <!-- Total Categories Card -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon categories">
+                            <i class="fas fa-th-large"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="totalCategories">8</div>
+                    <div class="stat-label">Service Categories</div>
+                    <a href="#" class="stat-action" onclick="showCategories()">
+                        View Details
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+
+                <!-- Total Requests Card -->
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon requests">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                    </div>
+                    <div class="stat-number" id="totalRequests">0</div>
+                    <div class="stat-label">Booking Requests</div>
+                    <a href="admin/viewOrders.html" class="stat-action">
+                        Manage Requests
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Modal -->
+    <div id="categoriesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCategories()">&times;</span>
+            <h2>Service Categories</h2>
+            <div class="categories-grid">
+                <div class="category-item">
+                    <i class="fas fa-home"></i>
+                    <h4>House Cleaning</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-utensils"></i>
+                    <h4>Cook/Chef</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-baby"></i>
+                    <h4>Baby Sitting</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-user-nurse"></i>
+                    <h4>Elderly Care</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-seedling"></i>
+                    <h4>Gardening</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-tshirt"></i>
+                    <h4>Laundry/Iron</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-paw"></i>
+                    <h4>Pet Care</h4>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Grocery Shopping</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="refresh-btn" onclick="refreshStats()" title="Refresh Statistics">
+        <i class="fas fa-sync-alt"></i>
+    </button>
+
+    <script>
+        // Global variables
+        let statsInterval;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardStats();
+            // Auto-refresh every 30 seconds
+            statsInterval = setInterval(loadDashboardStats, 30000);
+        });
+
+        // Load dashboard statistics
+        async function loadDashboardStats() {
+            try {
+                // Add loading state
+                document.querySelectorAll('.stat-card').forEach(card => {
+                    card.classList.add('loading');
+                });
+
+                // Fetch real-time stats
+                const [statsResponse, requestsResponse] = await Promise.all([
+                    fetch('/api/realtime-stats'),
+                    fetch('/api/booking-requests-count')
+                ]);
+
+                if (statsResponse.ok) {
+                    const stats = await statsResponse.json();
+                    updateStatCard('totalUsers', stats.totalUsers || 0);
+                    updateStatCard('totalMaids', stats.totalMaids || 0);
+                }
+
+                if (requestsResponse.ok) {
+                    const requestsData = await requestsResponse.json();
+                    updateStatCard('totalRequests', requestsData.totalRequests || 0);
+                } else {
+                    // Fallback: try to get from orders collection
+                    try {
+                        const ordersResponse = await fetch('/api/admin/orders');
+                        if (ordersResponse.ok) {
+                            const orders = await ordersResponse.json();
+                            updateStatCard('totalRequests', orders.length || 0);
+                        }
+                    } catch (error) {
+                        console.log('Could not fetch orders count');
+                        updateStatCard('totalRequests', 0);
+                    }
+                }
+
+                // Remove loading state
+                setTimeout(() => {
+                    document.querySelectorAll('.stat-card').forEach(card => {
+                        card.classList.remove('loading');
+                    });
+                }, 500);
+
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+                // Remove loading state on error
+                document.querySelectorAll('.stat-card').forEach(card => {
+                    card.classList.remove('loading');
+                });
+            }
+        }
+
+        // Update stat card with animation
+        function updateStatCard(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            const currentValue = parseInt(element.textContent) || 0;
+            
+            if (currentValue !== newValue) {
+                // Animate the number change
+                animateNumber(element, currentValue, newValue, 1000);
+            }
+        }
+
+        // Animate number changes
+        function animateNumber(element, start, end, duration) {
+            const startTime = performance.now();
+            const difference = end - start;
+
+            function updateNumber(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.round(start + (difference * easeOutQuart));
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+            
+            requestAnimationFrame(updateNumber);
+        }
+
+        // Refresh stats manually
+        function refreshStats() {
+            const refreshBtn = document.querySelector('.refresh-btn');
+            refreshBtn.classList.add('spinning');
+            
+            loadDashboardStats().finally(() => {
+                setTimeout(() => {
+                    refreshBtn.classList.remove('spinning');
+                }, 1000);
+            });
+        }
+
+        // Show categories modal
+        function showCategories() {
+            document.getElementById('categoriesModal').style.display = 'block';
+        }
+
+        // Close categories modal
+        function closeCategories() {
+            document.getElementById('categoriesModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('categoriesModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Toggle sidebar for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Clean up interval when page unloads
+        window.addEventListener('beforeunload', function() {
+            if (statsInterval) {
+                clearInterval(statsInterval);
+            }
+        });
+    </script>
+</body>
+</html>
