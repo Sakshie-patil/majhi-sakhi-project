@@ -501,14 +501,42 @@ app.get("/orders.html", (req, res) => {
 
 // To connect to MongoDB, define data schemas using Mongoose, and provide a real-time API to get the total count of users and maids — helpful for showing stats on an admin dashboard.x  (15) 
 
+// // MongoDB Connection using Mongoose
+// sakshi old mongo connection start
+// mongoose.connect("mongodb://localhost/maidFinderSystem", { useNewUrlParser: true, useUnifiedTopology: true })
+
+// // Defining schemas
+// const userSchema = new mongoose.Schema({
+//   username: String,
+//   password: String,
+// })
+// sakshii old mongo connection ends
+
+// To connect to MongoDB, define data schemas using Mongoose, and provide a real-time API to get the total count of users and maids — helpful for showing stats on an admin dashboard.x  (15) 
+
 // MongoDB Connection using Mongoose
-mongoose.connect("mongodb://localhost/maidFinderSystem", { useNewUrlParser: true, useUnifiedTopology: true })
+// Use the environment variable for Mongoose connection as well
+const MONGODB_URI_MONGOOSE = process.env.MONGO_URI; // Make sure the name matches what you set in Railway
+
+if (!MONGODB_URI_MONGOOSE) {
+    console.error("CRITICAL ERROR: MONGO_URI environment variable not set for Mongoose connection!");
+    process.exit(1);
+}
+
+mongoose.connect(MONGODB_URI_MONGOOSE) // Remove deprecated options: { useNewUrlParser: true, useUnifiedTopology: true }
+  .then(() => console.log('Mongoose connected successfully!'))
+  .catch(err => {
+      console.error('Mongoose connection error:', err);
+      process.exit(1);
+  });
+
 
 // Defining schemas
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
 })
+// ... rest of your code
 
 const maidSchema = new mongoose.Schema({
   name: String,
