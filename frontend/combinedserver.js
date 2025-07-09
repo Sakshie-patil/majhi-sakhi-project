@@ -10,6 +10,13 @@ const mongoose = require("mongoose")
 //Parses incoming request data (like form inputs) into usable JS objects
 const bodyParser = require("body-parser")
 
+
+// --- ADD THESE TWO LINES FOR DEBUGGING ---
+console.log('All Environment Variables available to process:', process.env);
+console.log('Value of MONGO_URI from process.env:', process.env.MONGO_URI);
+// --- END DEBUGGING LINES ---
+
+
 const app = express()
 const port = 3002
 
