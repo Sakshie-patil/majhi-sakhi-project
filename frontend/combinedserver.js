@@ -524,25 +524,26 @@ app.get("/orders.html", (req, res) => {
 
 // MongoDB Connection using Mongoose
 // Use the environment variable for Mongoose connection as well
-const MONGODB_URI_MONGOOSE = process.env.MONGO_URI; // Make sure the name matches what you set in Railway
 
-if (!MONGODB_URI_MONGOOSE) {
-    console.error("CRITICAL ERROR: MONGO_URI environment variable not set for Mongoose connection!");
+// MongoDB Connection using Mongoose
+const MONGOOSE_DB_URI = process.env.DATABASE_URL; // CHANGED TO DATABASE_URL, using a distinct variable name for Mongoose context
+
+if (!MONGOOSE_DB_URI) {
+    console.error("CRITICAL ERROR: DATABASE_URL environment variable not set for Mongoose connection!"); // Updated error message
     process.exit(1);
 }
 
-mongoose.connect(MONGODB_URI_MONGOOSE) // Remove deprecated options: { useNewUrlParser: true, useUnifiedTopology: true }
-  .then(() => console.log('Mongoose connected successfully!'))
-  .catch(err => {
-      console.error('Mongoose connection error:', err);
-      process.exit(1);
-  });
-
+mongoose.connect(MONGOOSE_DB_URI) // Uses the new variable name; Removed deprecated options
+    .then(() => console.log('Mongoose connected successfully!'))
+    .catch(err => {
+        console.error('Mongoose connection error:', err);
+        process.exit(1);
+    });
 
 // Defining schemas
 const userSchema = new mongoose.Schema({
-  username: String,
-  password: String,
+    username: String,
+    password: String,
 })
 // ... rest of your code
 
