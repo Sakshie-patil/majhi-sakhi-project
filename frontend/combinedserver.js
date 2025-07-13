@@ -163,7 +163,7 @@ const upload = multer({ storage: storage })
 
 // Frontend routes
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"))
+  res.sendFile(path.join(__dirname, "first.html"))
 })
 
 app.get("/results.html", (req, res) => {
