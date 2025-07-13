@@ -1,6 +1,6 @@
 # majhi-sakhi-project
 
-![maidConnect Screenshot](screenshot01.mov)
+🎥 [Click to watch demo video](screenshot01.mov)
 ![maidConnect Screenshot](screenshot02.png)
 ![maidConnect Screenshot](screenshot03.png)
 ![maidConnect Screenshot](screenshot04.png)
